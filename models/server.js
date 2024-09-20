@@ -1,9 +1,10 @@
 import express from 'express';
 import 'dotenv/config';
-import dbConnection from '../database/config.js'; // Ajusta la ruta a la ubicación correcta
+import dbConnection from '../database/config.js'; 
 import clienteRoutes from '../routers/clienteRoutes.js';
 import usuarioRoutes from '../routers/usuarioRoutes.js';
 import cuentaRoutes from '../routers/cuentaRoutes.js';
+import cors from 'cors'; // Importar cors
 
 class Server {
     constructor() {
@@ -17,6 +18,10 @@ class Server {
     }
 
     middlewares() {
+        this.app.use(cors({
+            origin: 'https://react-banco.onrender.com', // Permitir solo este origen
+            methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+        }));
         this.app.use(express.json());
     }
 
